@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
@@ -13,6 +14,7 @@ import (
 type Player struct {
 	health int
 	// Add mutex
+	mu sync.RWMutex
 
 }
 
@@ -24,11 +26,17 @@ func NewPlayer() *Player {
 
 func (p *Player) getHealth() int {
 	// Lock
+	//p.mu.Lock()
+	//defer p.mu.Unlock()
+	p.mu.RLock()
+	defer p.mu.RLocker().Unlock()
 	return p.health
 }
 
 func (p *Player) damage(amount int) {
 	// Lock
+	p.mu.Lock()
+	defer p.mu.Unlock()
 	p.health -= amount
 	fmt.Println("Player damaged with amount:", amount)
 }

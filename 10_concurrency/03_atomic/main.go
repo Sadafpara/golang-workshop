@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync/atomic"
 	"time"
 )
 
@@ -21,12 +22,14 @@ func NewPlayer() *Player {
 
 func (p *Player) getHealth() int {
 	// Atomic read
-	return 1
+	return int(atomic.LoadInt32(&p.health))
+	//return 1
 } 
 
 func (p *Player) damage(amount int) {
 	// atomic write
-
+	atomic.AddInt32(&p.health, int32(-amount))
+	// atomic.StoreInt32(&p.health, int32(-amount))
 	fmt.Println("Player damaged with amount:", amount)
 }
 

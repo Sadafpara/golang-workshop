@@ -49,7 +49,7 @@ func main() {
 
 	// A string is immutable, you can assign a new value but can't change the bytes
 	str = "new string here"
-	// str[0] = "N"
+	// str[0] = "N" not possibleü 
 
 	// Different values for the same variable
 	fmt.Printf("%b \n", 42)         // binary

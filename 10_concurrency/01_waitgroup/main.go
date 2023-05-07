@@ -3,10 +3,14 @@ package main
 import (
 	"fmt"
 	"runtime"
+	"sync"
 	"time"
 )
 
 // There is always an init() running before main()
+func init(){
+	println("initializing...")
+}
 
 func main() {
 	// Computer specs
@@ -16,10 +20,19 @@ func main() {
 	fmt.Println("Goroutines:\t", runtime.NumGoroutine())
 
 	start := time.Now()
+	var wG sync.WaitGroup
+	wG.Add(1)
 
 	// A goroutine is a lightweight thread managed by the Go runtime.
 	// A goroutine is capable of running concurrently with other functions.
 	// Launch a goroutine
+	go func ()  {
+		fmt.Println("\nHello from a goroutine!")
+		time.Sleep(time.Second)
+		wG.Done()
+		
+	}()
+	fmt.Println("Goroutine:\t")
 
 	// It takes some time to launch a goroutine, during which the main() function continues to run.
 	// The main() function might finish before the goroutine does.
@@ -33,6 +46,12 @@ func main() {
 	fmt.Println("\nThat took", time.Since(start))
 }
 
+var name string
+go func(){
+	
+}
+
+var match string
 func fetchUser() string {
 	time.Sleep(time.Millisecond * 100)
 	return "John"

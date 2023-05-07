@@ -11,6 +11,17 @@ func main() {
 	// Channels
 	// - A channel is a communication pipe that allows goroutines to communicate with each other (pass/receive values).
 	// - A channel will block by default if it is full.
+	/*
+	var ch chan int
+	ch = make(chan int)
+	ch <- 10
+	var x int
+	go func() {
+		x = <-ch
+		
+	}()
+	println(x)
+	*/
 
 	// The following won't work
 	// ch0 := make(chan int)
@@ -37,6 +48,7 @@ func main() {
 
 	bufCh <- "Finn"
 	bufCh <- "Luna"
+
 	// The following won't work
 	// bufCh <- "Lea" // This is waiting till a value is consumed from the channel so a space becomes free.
 }
